@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 🤍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(180deg, #0b1c24, #1f3b44);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.card {
+    max-width: 620px;
+    background: rgba(255,255,255,0.08);
+    padding: 35px;
+    border-radius: 22px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    animation: fadeIn 1.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    text-align: center;
+    font-weight: normal;
+}
+
+p {
+    line-height: 1.8;
+    font-size: 1.05em;
+}
+
+input, button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1em;
+    margin-top: 12px;
+}
+
+button {
+    background: #ffffff;
+    cursor: pointer;
+}
+
+#error {
+    text-align: center;
+    margin-top: 10px;
+    color: #ffb3b3;
+}
+
+.lily {
+    position: fixed;
+    opacity: 0.12;
+    width: 130px;
+}
+
+.l1 { top: 6%; left: 5%; }
+.l2 { bottom: 8%; right: 6%; transform: rotate(12deg); }
+.l3 { top: 22%; right: 12%; transform: rotate(-10deg); }
+
+iframe { display: none; }
+</style>
+</head>
+
+<body>
+
+<img class="lily l1" src="https://i.imgur.com/9Wb9M4n.png">
+<img class="lily l2" src="https://i.imgur.com/9Wb9M4n.png">
+<img class="lily l3" src="https://i.imgur.com/9Wb9M4n.png">
+
+<div class="card" id="lock">
+    <h1>🤍 For You Only</h1>
+    <p style="text-align:center;">Enter our secret</p>
+    <input type="password" id="pass" placeholder="••••••••••">
+    <button onclick="unlock()">Unlock</button>
+    <div id="error"></div>
+</div>
+
+<div class="card" id="content" style="display:none;">
+    <h1>Merry Christmas 🎄</h1>
+
+    <button onclick="playMusic()">Tap once before reading 🤍</button>
+
+    <p>
+    My love,<br><br>
+    Like lily of the valley, you came into my life softly — gentle, pure,
+    and without warning, you became my favorite place to be.
+    <br><br>
+    This Christmas, and every one after it, I choose you.
+    </p>
+
+    <iframe id="music"
+    src="https://open.spotify.com/embed/track/5HCyWlXZPP0y6Gqq8TgA20"
+    width="300" height="80"
+    allow="autoplay; encrypted-media;">
+    </iframe>
+</div>
+
+<script>
+const PASSWORD = "09989296551";
+
+function unlock() {
+    if (document.getElementById("pass").value === PASSWORD) {
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("content").style.display = "block";
+    } else {
+        document.getElementById("error").innerText = "That’s not our secret 🤍";
+    }
+}
+
+function playMusic() {
+    document.getElementById("music").style.display = "block";
+}
+</script>
+
+</body>
+</html>
