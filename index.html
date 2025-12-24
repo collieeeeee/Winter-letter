@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Aya 🤍</title>
+<title>For You 🤍</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
@@ -20,48 +20,31 @@ body {
     overflow: hidden;
 }
 
-/* 🌸 Floating lilies container */
-.floating-lilies {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* 🌸 Lily animation */
-.lily {
-    position: absolute;
-    bottom: -150px;
-    opacity: 0.18;
-    animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.18; }
-    50% { transform: translateY(-50vh) translateX(30px) rotate(8deg); }
-    100% { transform: translateY(-120vh) translateX(-30px) rotate(-8deg); opacity: 0; }
-}
-
-/* Lily variations */
-.l1 { left: 5%; width: 110px; animation-duration: 22s; }
-.l2 { left: 18%; width: 80px; animation-duration: 26s; animation-delay: 4s; }
-.l3 { left: 35%; width: 130px; animation-duration: 28s; animation-delay: 1s; }
-.l4 { left: 55%; width: 90px; animation-duration: 24s; animation-delay: 6s; }
-.l5 { left: 72%; width: 120px; animation-duration: 30s; animation-delay: 3s; }
-.l6 { left: 88%; width: 75px; animation-duration: 20s; animation-delay: 8s; }
-
-/* Card */
+/* Card container */
 .card {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
+    max-width: 700px;
+    width: 90%;
     background: rgba(255,255,255,0.08);
-    padding: 36px;
-    border-radius: 24px;
+    padding: 35px;
+    border-radius: 22px;
     backdrop-filter: blur(14px);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     animation: fadeIn 1.6s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+.card::-webkit-scrollbar {
+    width: 8px;
+}
+.card::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+}
+.card::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
 }
 
 @keyframes fadeIn {
@@ -72,18 +55,20 @@ body {
 h1 {
     text-align: center;
     font-weight: normal;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #ffe5e5;
 }
 
 p {
-    line-height: 1.85;
+    line-height: 1.8;
     font-size: 1.05em;
-    white-space: pre-wrap;
 }
 
 input, button {
     width: 100%;
     padding: 12px;
-    border-radius: 12px;
+    border-radius: 10px;
     border: none;
     font-size: 1em;
     margin-top: 12px;
@@ -92,6 +77,11 @@ input, button {
 button {
     background: #ffffff;
     cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #ffe5e5;
 }
 
 #error {
@@ -100,22 +90,42 @@ button {
     color: #ffb3b3;
 }
 
-iframe { display: none; }
+/* Floating lilies */
+.lily {
+    position: fixed;
+    opacity: 0.12;
+    width: 130px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.l1 { top: 6%; left: 5%; animation-delay: 0s; }
+.l2 { bottom: 8%; right: 6%; transform: rotate(12deg); animation-delay: 2s; }
+.l3 { top: 22%; right: 12%; transform: rotate(-10deg); animation-delay: 4s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Letter styling */
+.letter {
+    display: block;
+    width: 100%;
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #fff5e6;
+    white-space: pre-wrap;
+}
 </style>
 </head>
-
 <body>
 
-<!-- 🌸 Floating Lilies -->
-<div class="floating-lilies">
-    <img class="lily l1" src="https://i.imgur.com/9Wb9M4n.png">
-    <img class="lily l2" src="https://i.imgur.com/9Wb9M4n.png">
-    <img class="lily l3" src="https://i.imgur.com/9Wb9M4n.png">
-    <img class="lily l4" src="https://i.imgur.com/9Wb9M4n.png">
-    <img class="lily l5" src="https://i.imgur.com/9Wb9M4n.png">
-    <img class="lily l6" src="https://i.imgur.com/9Wb9M4n.png">
-</div>
+<!-- Floating lilies -->
+<img class="lily l1" src="https://i.imgur.com/9Wb9M4n.png">
+<img class="lily l2" src="https://i.imgur.com/9Wb9M4n.png">
+<img class="lily l3" src="https://i.imgur.com/9Wb9M4n.png">
 
+<!-- Password Lock -->
 <div class="card" id="lock">
     <h1>🤍 For You Only</h1>
     <p style="text-align:center;">Enter our secret</p>
@@ -124,105 +134,57 @@ iframe { display: none; }
     <div id="error"></div>
 </div>
 
+<!-- Content Card -->
 <div class="card" id="content" style="display:none;">
-    <h1>Merry Christmas, My Love 🎄</h1>
-    <button onclick="playLetter()">Tap once before reading 🤍</button>
-    <p id="letter"></p>
+    <h1>Merry Christmas 🎄</h1>
 
-    <iframe id="music"
-    src="https://open.spotify.com/embed/track/1dGr1c8CrMLDpV6mPbImSI"
-    width="300" height="80"
-    allow="autoplay; encrypted-media;">
-    </iframe>
+    <div class="letter">
+<p>
+My love,
+
+I recently have been enjoying writing letters for my special someone 🤔.  
+Her name is Chaela, but I call her Aya, and somehow, I call her loveyy and baby 😭.
+
+Merry Christmas MY LOVEYYYY 💕. We might not be together to say merry Christmas face to face, but I want you to know, the moment the clock turns 12, and the date turns into December 25, I hope you know that your name is the only thing in my mind. I hope you know that you were the first thing I thought of this Christmas. You matter so much to me, and I really can't fathom why you chose me ._., but I'm glad you did.
+
+You're my everything, Aya. You make me wanna live a life with you, I want to be with you forever na, no refunds 😉. I hope as this year ends, you realize how proud I am of you, you realize that no matter what, on the good days or on the bad days, I will stay with you. And no matter what, I will choose you over and over again, every single living day. I'll be your shoulder to lean on when the world becomes a bit too hard to handle, I'll be your number 1 supporter babyy 😎. So don't doubt yourself, you yourself is enough na loveyy, don't be too harsh, okayy? You deserve soooo much, and I hope as we enter this new year, you stay with me and I will give you everything that you deserve, You deserve the world, baby. I'm so thankful for fate that we met, blessing me with such an exceptional and beautiful angel (you 😏) buti nalang tinadhana tayo, nu? In a world full of failed relationships, I hope that ours will be an exception. I hope that we'll see the day where monthsaries become anniversaries and I hope we'll grow old together ♥️♥️. Maybe the best things in life are those who you meet accidentally, and those who really loves mogu mogu (and likes Taylor Swift ._.)
+
+"They say that in 2026, I should leave everything behind, the last year, the old chapters, the past. But if leaving means calling you my past, then I’d rather stay where time still knows your name 😌. If loving you means remaining in 2025, then 2025 is a beautiful place to exist 🤔. I won’t abandon you to yesterday, I’ll carry you gently into my next year, and into all the years we’re lucky enough to see together. ♥️"
+
+-me, myself and I (your baby, your border collie 💞🤭)
+
+You gave me the best Christmas present, Aya. It sounds corny but I really do think you're the best BEST gift I could ever ask for. You always have a special place in my heart. I wish you a merry, merry Christmas, wishing you blessings as I hold you from afar. Anyways, I'll be reading your letter now 😌. Love you my loveyy, for as long as the earth revolves around the sun 😭
+</p>
+    </div>
+
+    <!-- Taylor Swift song (looped) -->
+    <audio id="music" autoplay loop>
+        <source src="PUT_YOUR_I_LOVE_YOU_MP3_LINK_HERE" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 </div>
 
+<!-- Christmas sound effect when wrong password -->
+<audio id="jingle" preload="auto">
+    <source src="PUT_YOUR_CHRISTMAS_SOUND_MP3_LINK_HERE" type="audio/mpeg">
+</audio>
+
 <script>
-const PASSWORD = "0922";
-const letterLines = [
-`I recently have been enjoying writing letters for my special someone 🤔
-Her name is Chaela, but I call her Aya,
-and somehow, I call her loveyy and baby 😭`,
-
-`Merry Christmas MY LOVEYYYY 💕
-We might not be together to say it face to face,
-but I want you to know that the moment the clock turns 12,
-and the date turns December 25, your name is the only thing in my mind.
-You were the first thing I thought of this Christmas.
-You matter so much to me, and I really can't fathom why you chose me ._., but I'm glad you did.`,
-
-`You're my everything, Aya.
-You make me wanna live a life with you, I want to be with you forever na, No refunds 😉
-I hope as this year ends, you realize how proud I am of you,
-and that no matter what, on good days or bad days, I will stay with you.
-I will choose you over and over again, every single living day.`,
-
-`I'll be your shoulder to lean on when the world becomes a bit too hard to handle,
-I'll be your number 1 supporter babyy 😎
-So don't doubt yourself, you yourself are enough na loveyy, don't be too harsh, okay?
-You deserve soooo much, and I hope as we enter this new year, you stay with me
-and I will give you everything you deserve. You deserve the world, baby.`,
-
-`I'm so thankful for fate that we met, blessing me with such an exceptional and beautiful angel (you😏)
-Buti nalang tinadhana tayo, nu?
-In a world full of failed relationships, I hope ours will be an exception.
-I hope that monthsaries become anniversaries and I hope we'll grow old together ♥️♥️
-Maybe the best things in life are those who you meet accidentally, and those who really love mogu mogu (and like Taylor Swift ._.)`,
-
-`"They say that in 2026, I should leave everything behind, the last year, the old chapters, the past.
-But if leaving means calling you my past, then I’d rather stay where time still knows your name 😌.
-If loving you means remaining in 2025, then 2025 is a beautiful place to exist 🤔.
-I won’t abandon you to yesterday, I’ll carry you gently into my next year, and into all the years we’re lucky enough to see together." ♥️`,
-
-`— me, myself, and I (your baby, your border collie 💞🤭)`,
-
-`You gave me the best Christmas present, Aya,
-it may sound corny but you really are the best gift I could ever ask for.
-You will always have a special place in my heart.
-I wish you a merry, merry Christmas, sending blessings as I hold you from afar.`,
-
-`Love you my loveyy, for as long as the earth revolves around the sun 😭`,
-
-`Anyways… I shall be reading your letter now 😌`
-];
+const PASSWORD = "09989296551";
 
 function unlock() {
-    if (document.getElementById("pass").value === PASSWORD) {
+    const input = document.getElementById("pass").value;
+    const jingle = document.getElementById("jingle");
+    if(input === PASSWORD) {
         document.getElementById("lock").style.display = "none";
         document.getElementById("content").style.display = "block";
+        document.getElementById("music").play();
     } else {
         document.getElementById("error").innerText = "That’s not our secret 🤍";
+        jingle.play();
     }
-}
-
-function playMusic() {
-    document.getElementById("music").style.display = "block";
-}
-
-function playLetter() {
-    playMusic();
-    const letter = document.getElementById("letter");
-    letter.innerHTML = "";
-    let i = 0;
-    function showNextLine() {
-        if(i < letterLines.length){
-            let line = letterLines[i];
-            let j = 0;
-            let lineInterval = setInterval(() => {
-                letter.innerHTML += line[j];
-                j++;
-                if(j >= line.length){
-                    clearInterval(lineInterval);
-                    letter.innerHTML += "\n\n";
-                    i++;
-                    setTimeout(showNextLine, 400); // delay between paragraphs
-                }
-            }, 30); // typing speed
-        }
-    }
-    showNextLine();
 }
 </script>
 
 </body>
 </html>
-
